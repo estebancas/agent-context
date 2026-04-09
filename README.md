@@ -1,25 +1,42 @@
 ### Agent specific markdown files
 
-This is a template and custom rules for project context and AGENT markdown to improve claude context window and token efficiency
+This is a folder architecture template to improve agent project context and token efficiency
 
-CLAUDE.md is a special file that Claude reads at the start of every conversation. Include Bash commands, code style, and workflow rules. This gives Claude persistent context it can’t infer from code alone.
+The main idea is to divide most common workflows or relevant sections of the app and create a CONTEXT.md, and use CLAUDE.md/AGENTS.md as the floor plan to briefly point every important aspect of the project.
 
-CLAUDE.md is loaded every session, so only include things that apply broadly. For domain knowledge or workflows that are only relevant sometimes, use skills instead.
+```
+my-app/
+├── CLAUDE.md
+├── planning/
+│   ├── CONTEXT.md
+│   ├── specs/
+│   ├── architecture/
+│   └── decisions/
+├── src/
+│   ├── CONTEXT.md
+│   ├── components/
+│   ├── services/
+│   ├── utils/
+│   └── tests/
+├── docs/
+│   ├── CONTEXT.md
+│   ├── api/
+│   ├── guides/
+│   └── changelog/
+└── ops/
+    ├── CONTEXT.md
+    ├── deploy/
+    ├── monitoring/
+    └── scripts/
+```
 
-## What to include in CLAUDE.md
+**What each workspace does:**
 
-| ✅ Include | ❌ Exclude |
-| --- | --- |
-| Bash commands Claude can’t guess | Anything Claude can figure out by reading code |
-| Code style rules that differ from defaults | Standard language conventions Claude already knows |
-| Testing instructions and preferred test runners | Detailed API documentation (link to docs instead) |
-| Repository etiquette (branch naming, PR conventions) | Information that changes frequently |
-| Architectural decisions specific to your project | Long explanations or tutorials |
-| Developer environment quirks (required env vars) | File-by-file descriptions of the codebase |
-| Common gotchas or non-obvious behaviors | Self-evident practices like “write clean code” |
+<u>Planning</u>: Specs, architecture decisions, design docs. The CONTEXT.md describes the app, the tech stack, current priorities and any architectural principle I follow. This is what claude will read when I tell to help spect a new feature.
 
-CLAUDE.md cannot be any longer than 200 lines
+<u>src</u>: Actual code base. The CONTEXT.md here describes the code structure, naming conventions, patterns you use (and what patterns to avoid), testing requirements, and libraries or frameworks that are standard in the project.
 
-## 3 files
-A working folder that changes how Claude responds to you. Three files. Five minutes. You will see the difference immediately.
-(CLAUDE.md, CONTEXT.md, REFERENCES.md)
+<u>docs</u>: API documentation, user guides. The CONTEXT.md describes project documentation standards, the audience for each type of doc, and how docs are related to the code
+
+<u>ops</u>: Deployment, monitoring, operational scrips. The CONTEXT.md describes the infrastructure, deploy process and any runbook convention.
+
